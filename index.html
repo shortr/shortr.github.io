@@ -3,8 +3,12 @@
         <title>Rick Roll Link Shortener</title>
     </head>
     <body>
-        <h1>Insert link below (https://,http://,chrome://,etc://)</h1>
-        <input></input>
+        <h1>Insert link below</h1>
+        <input id="mainlink" style="width: 250px"></input>
+        <input style="display: none" id="itself" type="checkbox"></input>
+        <button id="submit">Submit</button>
+        
+        <h3 id="redirlink"></h3>
     </body>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src="index.js"></script>
