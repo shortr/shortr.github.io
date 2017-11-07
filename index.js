@@ -32,6 +32,9 @@ window.onload = function(){
   
   if(window.location.href.split("?")[1] === "" || window.location.href.split("?")[1] === undefined || window.location.href.split("?")[1] === null){
       //donothing
+        setTimeout(function(){
+        document.getElementById("con").style.display = "block";
+        },2000);
   }else{
       //redirect
       var hi = window.location.href.split("?");
@@ -40,8 +43,11 @@ window.onload = function(){
       ref.once('value',function(s){
           if(s.hasChild(hi)){
               ref.child(hi).once('value',function(url){
+                document.write("<h1>Click the window to continue to your link</h1>");
+                window.onmousedown = function(){
                   window.open(url.val(),"_blank");
                   window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+                };
               });
           }else{
               alert("Error 404 - URL not found");
@@ -49,7 +55,4 @@ window.onload = function(){
           }
       });
   }
-  setTimeout(function(){
-    document.getElementById("con").style.display = "block";
-  },2000);
 };
