@@ -67,7 +67,7 @@ window.onload = function(){
                   if(url.val().search("://") !== -1){
                     window.open("https://" + url.val(),"_blank");
                   }else{
-                    window.open(url.val,"_blank")
+                    window.open(url.val(),"_blank")
                   }
                   window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
                 };
