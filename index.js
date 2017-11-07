@@ -22,15 +22,29 @@ window.onload = function(){
   
   //converts numbers to chars. beware using custom chars for links, they can be overwritten more easily
   function conv(num){
+    var nn = num;
     var string = ""; //string of shortlink
     var l = 0; //length of string
+    if(Math.floor(nn/49)-1 >= 0){
+      string = string + randChars3[Math.floor(nn/49)-1];
+    }
+    nn = nn % 49;
+    if(Math.floor(nn/7)-1 >= 0){
+      string = string + randChars2[Math.floor(nn/7)-1];
+    }
+    nn = nn % 7;
+    if(nn - 1 >= 0){
+      string = string + randChars[nn - 1];
+    }
+    ref.child(string).set(linksh.value);
+    displaytext.innerText = "Success! Your link leads to " + linksh.value + ": https://shortr.github.io/?" + string;
   }
   
   bu.onclick = function(){
       var n = 0;
       ref.once("value", function(snapshot) {
           n = snapshot.numChildren();
-          conv(n);
+          conv(n + 1);
       });
   };
   
