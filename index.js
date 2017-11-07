@@ -18,9 +18,17 @@ window.onload = function(){
   
   var randChars = ["a","b","c","d","e","f","A","B","C","D","E","F"];
   
-  bu.onclick = function(){
-      
+  //converts numbers to chars. beware using custom chars for links, they can be overwritten more easily
+  function conv(){
+      null;
   }
+  
+  bu.onclick = function(){
+      var n = 0;
+      ref.once("value", function(snapshot) {
+          n = snapshot.numChildren();
+      });
+  };
   
   if(window.location.href.split("?")[1] === "" || window.location.href.split("?")[1] === undefined || window.location.href.split("?")[1] === null){
       //donothing
@@ -32,7 +40,7 @@ window.onload = function(){
       ref.once('value',function(s){
           if(s.hasChild(hi)){
               ref.child(hi).once('value',function(url){
-                  window.open(url.val());
+                  window.open(url.val(),"_blank");
                   window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
               });
           }else{
@@ -41,4 +49,7 @@ window.onload = function(){
           }
       });
   }
+  setTimeout(function(){
+    document.getElementById("con").style.display = "block";
+  },2000);
 };
