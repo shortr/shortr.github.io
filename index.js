@@ -70,7 +70,7 @@ window.onload = function(){
               });
           }else{
               alert("Error 404 - URL not found");
-              close();
+              window.location.replace("https://shortr.github.io");
           }
       });
   }
