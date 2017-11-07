@@ -16,21 +16,25 @@ window.onload = function(){
   var bu = document.getElementById("submit");
   var displaytext = document.getElementById("redirlink");
   
-  var randChars = ["a","b","c","d","e","f","A","B","C","D","E","F","1","2","3","4","5","6"];
+  var randChars = ["a","b","c","d","e","f"];
+  var randChars2 = ["A","B","C","D","E","F"];
+  var randChars3 = ["1","2","3","4","5","6"];
   
   //converts numbers to chars. beware using custom chars for links, they can be overwritten more easily
-  function conv(){
-      null;
+  function conv(num){
+    var string = ""; //string of shortlink
+    var l = 0; //length of string
   }
   
   bu.onclick = function(){
       var n = 0;
       ref.once("value", function(snapshot) {
           n = snapshot.numChildren();
+          conv(n);
       });
   };
   
-  if(window.location.href.split("?")[1] === "" || window.location.href.split("?")[1] === undefined || window.location.href.split("?")[1] === null){
+  if(window.location.href.split("?")[1] === "_c9_id=livepreview0&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "" || window.location.href.split("?")[1] === undefined || window.location.href.split("?")[1] === null){
       //donothing
         setTimeout(function(){
         document.getElementById("con").style.display = "block";
@@ -44,7 +48,7 @@ window.onload = function(){
           if(s.hasChild(hi)){
               ref.child(hi).once('value',function(url){
                 document.write("<h1>Click the window to continue to your link</h1>");
-                document.write("<h6>if it doesn't work, click this link:" + "<a href='" + url.val() + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + url.val() + "</>");
+                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + url.val() + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + url.val() + "</a></h4>");
                 window.onmousedown = function(){
                   window.open(url.val(),"_blank");
                   window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
