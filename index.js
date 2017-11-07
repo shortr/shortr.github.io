@@ -44,6 +44,7 @@ window.onload = function(){
           if(s.hasChild(hi)){
               ref.child(hi).once('value',function(url){
                 document.write("<h1>Click the window to continue to your link</h1>");
+                document.write("<h6>if it doesn't work, click this link:" + "<a href='" + url.val() + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + url.val() + "</>");
                 window.onmousedown = function(){
                   window.open(url.val(),"_blank");
                   window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
