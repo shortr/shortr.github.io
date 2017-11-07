@@ -16,7 +16,7 @@ window.onload = function(){
   var bu = document.getElementById("submit");
   var displaytext = document.getElementById("redirlink");
   
-  var randChars = ["a","b","c","d","e","f","A","B","C","D","E","F"];
+  var randChars = ["a","b","c","d","e","f","A","B","C","D","E","F","1","2","3","4","5","6"];
   
   //converts numbers to chars. beware using custom chars for links, they can be overwritten more easily
   function conv(){
