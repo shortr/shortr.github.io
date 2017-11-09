@@ -1,3 +1,5 @@
+//version 1.0.4
+
 window.onload = function(){
   var config = {
     apiKey: "AIzaSyCMrZkWALgQ9IC7__7LA8GG_xzhmVrONCA",
