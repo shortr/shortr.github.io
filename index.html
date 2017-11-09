@@ -2,6 +2,13 @@
     <head>
         <title>A Link Shortener</title>
         <link rel="shortcut icon" href="/fav.png"></link>
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Montserrat');
+        </style>
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Roboto');
+        </style>
+        <link href="index.css" type="text/css" rel="stylesheet"></link>
     </head>
     <body>
         <div id="con" style="display: none">
@@ -9,9 +16,20 @@
             <input id="mainlink" style="width: 250px"></input>
             <input style="display: none" id="itself" type="checkbox"></input>
             <button id="submit">Submit</button>
+            <h3 id="redirlink"></h3>
+            <div id=inst>
+            <strong>
+                <h2>
+                    How to use:
+                </h2>
+            </strong>
+            <ol>
+                <li>Enter your url</li>
+                <li>Press the Sunbmit button</li>
+                <li>Copy and send the link to your friends!</li>
+            </ol>
+            </div>
         </div>
-        
-        <h3 id="redirlink"></h3>
     </body>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src="index.js"></script>

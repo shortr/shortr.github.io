@@ -1,0 +1,31 @@
+#con{
+    position: absolute;
+    height: 600px;
+    width: 400px;
+    margin: 0 0 0 -200px;
+    left: 50%;
+    background: rgba(0,134,255,0.7);
+    text-align: center;
+    z-index: 10;
+}
+h1{
+    font-family: 'Montserrat', sans-serif;
+    color: green;
+}
+body{
+    background: rgba(100,255,2,0.4);
+}
+#inst{
+    margin-top: 350px;
+    background: blue;
+    height: 150px;
+}
+#inst > strong{
+    Color: yellow;
+}
+#inst > ol{
+    text-align: left;
+    color: white;
+    font-size: 20;
+    font-family: 'Roboto', sans-serif;
+}
