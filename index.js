@@ -44,7 +44,18 @@ window.onload = function(){
       var n = 0;
       ref.once("value", function(snapshot) {
           n = snapshot.numChildren();
-          conv(n + 1);
+          var l = snapshot.val();
+          var exists = false;
+          for(var i in l){
+            if(l[i] === linksh.value){
+              displaytext.innerText = "Success! Your link leads to " + linksh.value + ": https://shortr.github.io/?" + i;
+              exists = true;
+              break;
+            }
+          }
+          if(exists === false){
+            conv(n + 1);
+          }
       });
   };
   
