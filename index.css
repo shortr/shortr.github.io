@@ -16,7 +16,7 @@ body{
     background: rgba(100,255,2,0.4);
 }
 #inst{
-    margin-top: 350px;
+    transform: translateY(350px);
     background: blue;
     height: 150px;
 }
@@ -28,4 +28,7 @@ body{
     color: white;
     font-size: 20;
     font-family: 'Roboto', sans-serif;
+}
+#redirlink{
+    position: absolute;
 }

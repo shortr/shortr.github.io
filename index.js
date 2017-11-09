@@ -1,4 +1,4 @@
-//version 1.0.4
+//version 1.1.2
 
 window.onload = function(){
   var config = {
@@ -14,7 +14,6 @@ window.onload = function(){
   var ref = firebase.database().ref();
   
   var linksh = document.getElementById("mainlink");
-  var secret = document.getElementById("itself");
   var bu = document.getElementById("submit");
   var displaytext = document.getElementById("redirlink");
   
@@ -61,7 +60,7 @@ window.onload = function(){
       });
   };
   
-  if(window.location.href.split("?")[1] === "_c9_id=livepreview0&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "" || window.location.href.split("?")[1] === undefined || window.location.href.split("?")[1] === null){
+  if(window.location.href.split("?")[1] === "_c9_id=livepreview0&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "_c9_id=livepreview1&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "" || window.location.href.split("?")[1] === undefined || window.location.href.split("?")[1] === null){
       //donothing
         setTimeout(function(){
         document.getElementById("con").style.display = "block";
@@ -80,7 +79,7 @@ window.onload = function(){
                   if(url.val().search("://") === -1){
                     window.open("https://" + url.val(),"_blank");
                   }else{
-                    window.open(url.val(),"_blank")
+                    window.open(url.val(),"_blank");
                   }
                   window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
                 };
