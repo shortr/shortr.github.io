@@ -32,3 +32,17 @@ body{
 #redirlink{
     position: absolute;
 }
+#footer{
+    position: fixed;
+    bottom: 0;
+    color: grey;
+}
+#footer > #version{
+    display: inline;
+}
+#rt-footer{
+    position: fixed;
+    right: 10;
+    text-align: right;
+    bottom: -10;
+}

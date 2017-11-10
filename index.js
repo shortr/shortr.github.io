@@ -13,6 +13,10 @@ window.onload = function(){
   
   var ref = firebase.database().ref();
   
+  var version = "1.1.3";
+  var v = document.getElementById("version");
+  v.innerText = "v. " + version;
+  
   var linksh = document.getElementById("mainlink");
   var bu = document.getElementById("submit");
   var displaytext = document.getElementById("redirlink");
@@ -60,7 +64,7 @@ window.onload = function(){
       });
   };
   
-  if(window.location.href.split("?")[1] === "_c9_id=livepreview0&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "_c9_id=livepreview1&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "" || window.location.href.split("?")[1] === undefined || window.location.href.split("?")[1] === null){
+  if(window.location.href.split("?")[1] === "_c9_id=livepreview3&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "_c9_id=livepreview0&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "_c9_id=livepreview1&_c9_host=https://ide.c9.io" || window.location.href.split("?")[1] === "" || window.location.href.split("?")[1] === undefined || window.location.href.split("?")[1] === null){
       //donothing
         setTimeout(function(){
         document.getElementById("con").style.display = "block";
