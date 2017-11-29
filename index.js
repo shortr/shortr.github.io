@@ -13,7 +13,7 @@ window.onload = function(){
   
   var ref = firebase.database().ref();
   
-  var version = "1.1.3";
+  var version = "1.1.4";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
   
