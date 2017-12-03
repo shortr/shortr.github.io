@@ -13,7 +13,7 @@ window.onload = function(){
   
   var ref = firebase.database().ref();
   
-  var version = "1.2.1";
+  var version = "1.2.2";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
   
@@ -85,8 +85,8 @@ window.onload = function(){
                   }else{
                     window.open(url.val(),"_blank");
                   }
+                  window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
                 };
-                window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
               });
           }else{
               alert("Error 404 - URL not found");
