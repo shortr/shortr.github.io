@@ -78,7 +78,7 @@ window.onload = function(){
           if(s.hasChild(hi)){
               ref.child(hi).once('value',function(url){
                 document.write("<h1>Click the window to continue to your link</h1>");
-                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + url.val() + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + url.val() + "</a></h4>");
+                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + url.val() + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "the link" + "</a></h4>");
                 window.onmousedown = function(){
                   if(url.val().search("://") === -1){
                     window.open("https://" + url.val(),"_blank");
