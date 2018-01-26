@@ -87,7 +87,7 @@ window.onload = function(){
                       window.open("https://" + url.val(),"_blank");
                     }else{
                       var newWin = window.open("","_blank");
-                      newWin.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
+                      newWin.document.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
                     }
                   }else{
                     window.open(url.val(),"_blank");
