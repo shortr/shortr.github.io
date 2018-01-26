@@ -83,7 +83,12 @@ window.onload = function(){
                 document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + k + "</a></h4>");
                 window.onmousedown = function(){
                   if(url.val().search("://") === -1){
-                    window.open("https://" + url.val(),"_blank");
+                    if(url.val().search("data:") === -1){
+                      window.open("https://" + url.val(),"_blank");
+                    }else{
+                      var newWin = window.open("","_blank");
+                      newWin.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
+                    }
                   }else{
                     window.open(url.val(),"_blank");
                   }
