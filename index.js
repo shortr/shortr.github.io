@@ -77,8 +77,8 @@ window.onload = function(){
       ref.once('value',function(s){
           if(s.hasChild(hi)){
               ref.child(hi).once('value',function(url){
-                var k = url.val().replace(/"/,"\"");
-                k = url.val().replace(/'/,"\'");
+                var k = url.val().replace(/"/,"%22");
+                k = url.val().replace(/'/,"%27");
                 document.write("<h1>Click the window to continue to your link</h1>");
                 document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + k + "</a></h4>");
                 window.onmousedown = function(){
