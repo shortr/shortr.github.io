@@ -94,6 +94,10 @@ window.onload = function(){
                   }
                   window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
                 };
+                if(window.ontouchstart){
+                  window.ontouchstart = window.onmousedown;
+                  window.onmousedown = undefined;
+                }
               });
           }else{
               alert("Error 404 - URL not found");
