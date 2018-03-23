@@ -1,4 +1,4 @@
-//version 1.1.2
+//version 1.4.0
 
 window.onload = function(){
   var config = {
@@ -13,7 +13,7 @@ window.onload = function(){
   
   var ref = firebase.database().ref();
   
-  var version = "1.2.2";
+  var version = "1.4.0";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
   
@@ -80,15 +80,22 @@ window.onload = function(){
                 var k = url.val().replace(/"/,"%22");
                 k = url.val().replace(/'/,"%27");
                 document.write("<h1>Click the window to continue to your link</h1>");
-                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><textarea value=" + k + "></textarea>");
+                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><textarea style='width: 100%' value=" + k + "></textarea>");
                 window.onmousedown = function(){
                   if(url.val().search("://") === -1){
                     if(url.val().search("data:") === -1){
                       window.open("https://" + url.val(),"_blank");
                     }else{
                       var newWin = window.open("","_blank");
-                      
-                      newWin.document.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
+                      if(url.val().substr(5,3) == "img" || url.val().substr(5,6) == "image"){
+                        newWin.document.write("<img src='" + k + "'/>");
+                      }else if(url.val().substr(5,5) == "audio"){
+                        newWin.document.write("<audio src='" + k + "'/>");
+                      }else if(url.val().substr(5,5) == "video"){
+                        newWin.document.write("<video src='" + k + "'/>");
+                      }else{
+                        newWin.document.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
+                      }
                     }
                   }else{
                     window.open(url.val(),"_blank");
