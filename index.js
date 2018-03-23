@@ -13,7 +13,7 @@ window.onload = function(){
   
   var ref = firebase.database().ref();
   
-  var version = "1.4.1";
+  var version = "1.4.2";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
   
@@ -80,7 +80,7 @@ window.onload = function(){
                 var k = url.val().replace(/"/,"%22");
                 k = url.val().replace(/'/,"%27");
                 document.write("<h1>Click the window to continue to your link</h1>");
-                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><textarea width=100% value=" + k + "></textarea>");
+                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><textarea width='100%' style='width: 100%' value=" + k + "></textarea>");
                 window.onmousedown = function(){
                   if(url.val().search("://") === -1){
                     if(url.val().search("data:") === -1){
