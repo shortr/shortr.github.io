@@ -87,11 +87,11 @@ window.onload = function(){
                       window.open("https://" + url.val(),"_blank");
                     }else{
                       var newWin = window.open("","_blank");
-                      if(url.val().substr(5,3) == "img" || url.val().substr(5,6) == "image"){
+                      if(url.val().substr(0,10).search("img") != -1 || url.val().substr(0,13).search("image") != -1){
                         newWin.document.write("<img src='" + k + "'/>");
-                      }else if(url.val().substr(5,5) == "audio"){
+                      }else if(url.val().substr(0,13).search("audio") != -1){
                         newWin.document.write("<audio src='" + k + "'/>");
-                      }else if(url.val().substr(5,5) == "video"){
+                      }else if(url.val().substr(0,13).search("video") != -1){
                         newWin.document.write("<video src='" + k + "'/>");
                       }else{
                         newWin.document.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
