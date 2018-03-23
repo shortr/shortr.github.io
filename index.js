@@ -80,13 +80,14 @@ window.onload = function(){
                 var k = url.val().replace(/"/,"%22");
                 k = url.val().replace(/'/,"%27");
                 document.write("<h1>Click the window to continue to your link</h1>");
-                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><h4>" + k + "</h4>");
+                document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><textarea value=" + k + "></textarea>");
                 window.onmousedown = function(){
                   if(url.val().search("://") === -1){
                     if(url.val().search("data:") === -1){
                       window.open("https://" + url.val(),"_blank");
                     }else{
                       var newWin = window.open("","_blank");
+                      
                       newWin.document.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
                     }
                   }else{
