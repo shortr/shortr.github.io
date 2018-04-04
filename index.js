@@ -104,7 +104,6 @@ window.onload = function(){
                 };
                 if(window.ontouchstart){
                   window.ontouchstart = window.onmousedown;
-                  window.onmousedown = undefined;
                 }
               });
           }else{
