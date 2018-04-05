@@ -75,10 +75,9 @@ window.onload = function(){
       var hi = window.location.href.split("?");
       delete hi[0];
       hi = hi.join().replace(/,/img,"");
+      alert(ref); //DEBUG
       ref.once('value',function(s){
-        alert("message has been found! Debug: s = " + s);
           if(s.hasChild(hi)){
-              alert("Child has been found!"); //More debugging... (V 1.4.1) (NOT WORKING...)
               ref.child(hi).once('value',function(url){
                 var k = url.val().replace(/"/,"%22");
                 k = url.val().replace(/'/,"%27");
