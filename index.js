@@ -1,4 +1,4 @@
-//version 1.4.0
+//version 1.4.1
 /*global firebase*/
 window.onload = function(){
   var config = {
@@ -70,6 +70,7 @@ window.onload = function(){
         document.getElementById("con").style.display = "block";
         },2000);
   }else{
+      alert("There is indeed a link that is being shortened."); //used for debugging purposes currently (V 1.4.1)
       //redirect
       var hi = window.location.href.split("?");
       delete hi[0];
