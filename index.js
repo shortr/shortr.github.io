@@ -1,4 +1,4 @@
-//version 1.4.1
+//version 1.5.0
 /*global firebase*/
 window.onload = function(){
   var config = {
@@ -75,7 +75,6 @@ window.onload = function(){
       delete hi[0];
       hi = hi.join().replace(/,/img,"");
       ref.once('value',function(s){
-          alert(s); //debugging... :(
           if(s.hasChild(hi) == true){
               ref.child(hi).once('value',function(url){
                 var k = url.val().replace(/"/,"%22");
