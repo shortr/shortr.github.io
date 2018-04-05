@@ -70,12 +70,11 @@ window.onload = function(){
         document.getElementById("con").style.display = "block";
         },2000);
   }else{
-      //alert("There is indeed a link that is being shortened."); //used for debugging purposes currently (V 1.4.1) (WORKS)
       //redirect
       var hi = window.location.href.split("?");
       delete hi[0];
       hi = hi.join().replace(/,/img,"");
-      alert(ref); //DEBUG
+      alert(typeof(ref.once));
       ref.once('value',function(s){
           if(s.hasChild(hi)){
               ref.child(hi).once('value',function(url){
