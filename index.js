@@ -74,9 +74,9 @@ window.onload = function(){
       var hi = window.location.href.split("?");
       delete hi[0];
       hi = hi.join().replace(/,/img,"");
-      alert(typeof(ref.once));
       ref.once('value',function(s){
-          if(s.hasChild(hi)){
+          alert(s); //debugging... :(
+          if(s.hasChild(hi) == true){
               ref.child(hi).once('value',function(url){
                 var k = url.val().replace(/"/,"%22");
                 k = url.val().replace(/'/,"%27");
