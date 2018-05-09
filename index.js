@@ -1,4 +1,4 @@
-//version 1.5.0
+//version 1.5.1
 /*global firebase*/
 window.onload = function(){
   var config = {
@@ -28,21 +28,38 @@ window.onload = function(){
   //converts numbers to chars. beware using custom chars for links, they can be overwritten more easily
   function conv(num){
     var nn = num;
+    var nn2 = nn;
+    var rep = true;
     var string = ""; //string of shortlink
     var l = 0; //length of string
-    if(Math.floor(nn/49)-1 >= 0){
-      string = string + randChars3[Math.floor(nn/49)-1];
+    
+    while (rep==true){
+      if(nn2 >= 342){
+          nn = nn2;
+          nn2 = nn - 342;
+          nn = 342;
+      }else{
+          nn = nn2;
+          rep = false;
+      }
+      if(Math.floor(nn/49)-1 >= 0){
+        string = string + randChars3[Math.floor(nn/49)-1];
+      }
+      nn = nn % 49;
+      if(Math.floor(nn/7)-1 >= 0){
+        string = string + randChars2[Math.floor(nn/7)-1];
+      }
+      nn = nn % 7;
+      if(nn - 1 >= 0){
+        string = string + randChars[nn - 1];
+      }
+      if(rep == true){
+          //nope
+      }else{
+        ref.child(string).set(linksh.value);
+        displaytext.innerText = "Success! Your link leads to " + linksh.value + ": https://shortr.github.io/?" + string;
+      }
     }
-    nn = nn % 49;
-    if(Math.floor(nn/7)-1 >= 0){
-      string = string + randChars2[Math.floor(nn/7)-1];
-    }
-    nn = nn % 7;
-    if(nn - 1 >= 0){
-      string = string + randChars[nn - 1];
-    }
-    ref.child(string).set(linksh.value);
-    displaytext.innerText = "Success! Your link leads to " + linksh.value + ": https://shortr.github.io/?" + string;
   }
   
   bu.onclick = function(){
