@@ -58,7 +58,7 @@ window.onload = function(){
       }else{
         ref.child(string).set(linksh.value);
         let clink = linksh.value;
-        if(linksh.value >= 60){
+        if(linksh.value.length >= 60){
           clink = linksh.value.substr(0,60) + "...";
         }
         displaytext.innerText = "Success! Your link leads to " + clink + ": https://shortr.github.io/?" + string;
@@ -75,7 +75,7 @@ window.onload = function(){
           for(var i in l){
             if(l[i] === linksh.value){
               let clink = linksh.value;
-              if(linksh.value >= 60){
+              if(linksh.value.length >= 60){
                 clink = linksh.value.substr(0,60) + "...";
               }
               displaytext.innerText = "Success! Your link leads to " + clink + ": https://shortr.github.io/?" + i;
