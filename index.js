@@ -57,10 +57,11 @@ window.onload = function(){
           //nope
       }else{
         ref.child(string).set(linksh.value);
-        if(linksh.value >= 20){
-          linksh.value = linksh.value.substr(0,20) + "...";
+        let clink = linksh.value;
+        if(linksh.value >= 60){
+          clink = linksh.value.substr(0,60) + "...";
         }
-        displaytext.innerText = "Success! Your link leads to " + linksh.value + ": https://shortr.github.io/?" + string;
+        displaytext.innerText = "Success! Your link leads to " + clink + ": https://shortr.github.io/?" + string;
       }
     }
   }
@@ -73,10 +74,11 @@ window.onload = function(){
           var exists = false;
           for(var i in l){
             if(l[i] === linksh.value){
-              if(linksh.value >= 20){
-                linksh.value = linksh.value.substr(0,20) + "...";
+              let clink = linksh.value;
+              if(linksh.value >= 60){
+                clink = linksh.value.substr(0,60) + "...";
               }
-              displaytext.innerText = "Success! Your link leads to " + linksh.value + ": https://shortr.github.io/?" + i;
+              displaytext.innerText = "Success! Your link leads to " + clink + ": https://shortr.github.io/?" + i;
               exists = true;
               break;
             }
