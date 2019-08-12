@@ -155,7 +155,13 @@ window.onload = function(){
                     newWin.document.write("<audio src='" + k + "'/>");
                   }else if(url.val().substr(0,13).search("video") != -1){
                     newWin.document.write("<video src='" + k + "'/>");
-                  }else{
+                  }else if(url.val().substr(0,13).search("html") != -1){
+                    try{
+                      newWin.document.write(atob(url.val().split(",").slice(1).join(",")));
+                    }catch(err){
+                      newWin.document.write(url.val().split(",").slice(1).join(","));
+                    }
+                  }{
                     newWin.document.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
                   }
                 }
