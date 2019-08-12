@@ -161,7 +161,7 @@ window.onload = function(){
                     }catch(err){
                       newWin.document.write(url.val().split(",").slice(1).join(","));
                     }
-                  }{
+                  }else{
                     newWin.document.write("<iframe src='" + k + "' frameBorder=0 width=100% height=100%>");
                   }
                 }
