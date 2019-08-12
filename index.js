@@ -155,7 +155,7 @@ window.onload = function(){
                     newWin.document.write("<audio src='" + k + "'/>");
                   }else if(url.val().substr(0,13).search("video") != -1){
                     newWin.document.write("<video src='" + k + "'/>");
-                  }else if(url.val().substr(0,13).search("html") != -1){
+                  }else if(url.val().substr(0,14).search("html") != -1){
                     try{
                       newWin.document.write(atob(url.val().split(",").slice(1).join(",")));
                     }catch(err){
