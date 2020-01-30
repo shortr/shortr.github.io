@@ -110,7 +110,7 @@ window.onload = function(){
     }
   });
 
-  if(location.pathname.search("tips") != -1){
+  if(location.pathname.search("tips") != -1 && !location.search){
     location.search = "llorkcir";
   }
 
