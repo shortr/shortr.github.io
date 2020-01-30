@@ -144,13 +144,13 @@ window.onload = function(){
             }else{
               // if was a data: thing
               var newWin = window.open("","_blank");
-              if(url.val().substr(0,10).search("img") != -1 || url.val().substr(0,13).search("image") != -1){
+              if(url.val().substr(0,15).search("img") != -1 || url.val().substr(0,13).search("image") != -1){
                 newWin.document.write("<img src='" + k + "'/>");
-              }else if(url.val().substr(0,13).search("audio") != -1){
+              }else if(url.val().substr(0,15).search("audio") != -1){
                 newWin.document.write("<audio src='" + k + "'/>");
-              }else if(url.val().substr(0,13).search("video") != -1){
+              }else if(url.val().substr(0,15).search("video") != -1){
                 newWin.document.write("<video src='" + k + "'/>");
-              }else if(url.val().substr(0,14).search("html") != -1){
+              }else if(url.val().substr(0,20).search("html") != -1){
                 try{
                   newWin.document.write(atob(url.val().split(",").slice(1).join(",")));
                 }catch(err){
