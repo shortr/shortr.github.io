@@ -12,7 +12,7 @@ window.onload = function(){
 
   var ref = firebase.database().ref();
 
-  var version = "2.1.2";
+  var version = "2.1.3";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
 
@@ -175,28 +175,14 @@ window.onload = function(){
       }
     });
   }
-  function html_to_xml(html) {
-    var doc = document.implementation.createHTMLDocument('');
-    doc.write(html);
-
-    // You must manually set the xmlns if you intend to immediately serialize
-    // the HTML document to a string as opposed to appending it to a
-    // <foreignObject> in the DOM
-    doc.documentElement.setAttribute('xmlns', doc.documentElement.namespaceURI);
-
-    // Get well-formed markup
-    html = (new XMLSerializer).serializeToString(doc.body);
-    return html;
-  }
   function getScreenshot(url){
+    var img;
     const te = document.createElement("p");
     te.innerHTML = "Basic render of url:";
-    const img = new Image();
-    img.alt = "A basic render of the url. It will probably not show anything.\nMost documents are too large and not meant to be rendered as XML";
-    img.height = Math.ceil(window.innerHeight / 1.5);
-    img.width = Math.ceil(window.innerWidth / 1.5);
     if(url.substr(0,20).search("://") == -1){ // might be data url
       if(url.substr(0,20).search("image") != -1){ // image
+        img = new Image();
+        img.width = Math.ceil(window.innerWidth / 1.5);
         img.src = url;
       }else{ // assume html
         let g = url.split(",").slice(1).join(",");
@@ -205,42 +191,50 @@ window.onload = function(){
         }catch(e){
           // nothing
         }
-        var fx = html_to_xml(g);
-        const h = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="${window.innerWidth / 1.5}" height="${window.innerHeight / 1.5}">
-          <foreignObject style="width: ${window.innerWidth / 1.5}px; height: ${window.innerHeight}px">
-            ${fx}
-          </foreignObject>
-        </svg>`;
-        img.src = h;
+        const t = document.createElement("template");
+        window.debug = t;
+        t.innerHTML = x.responseText;
+        img = t.content.cloneNode(true);
+        img.querySelectorAll("script,iframe,audio,video,style,link").forEach(o=>{o.innerHTML = "";if(o.href){o.href="";}});
+        img.querySelectorAll("[onload],[onerror],[onmouseover],[onmousedown],[onmouseup],[onkeydown],[onkeypress],[onkeyup],[ontouchstart],[ontouchend],[onmousemove]").forEach(o=>{
+
+        });
       }
+      // append
+      document.body.append(te,img);
     }else if(url.search("\\.") == -1){ // just text
-      const h = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="${window.innerWidth / 1.5}" height="${window.innerHeight / 1.5}">
-        <foreignObject style="width: ${window.innerWidth / 1.5}px; height: ${window.innerHeight}px">
-          <p>${url}</p>
-        </foreignObject>
-      </svg>`;
-      img.src = h;
+      // append
+      img = document.createElement("p");
+      img.innerHTML = url.replace(/</gm,"&lt;").replace(/>/gm,"&gt;");
+      document.body.append(te,img);
     }else{ // url
       const x = new XMLHttpRequest();
       x.open("GET",`https://cors-anywhere.herokuapp.com/${url}`);
       x.send();
+      x.onprogress = function(e){
+        if(e.total > 2e+6){ // bigger than 2 mb
+          x.abort();
+        }
+      };
       x.onload = function(){
-        var tmp = document.createElement("template");
-        tmp.innerHTML = x.response;
-        let elem = tmp.querySelectorAll("script");
-        elem.forEach(i=>{
-          i.outerHTML = "";
-        });
-        var fx = html_to_xml(tmp.innerHTML);
-        const h = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="${window.innerWidth / 1.5}" height="${window.innerHeight / 1.5}">
-          <foreignObject style="width: ${window.innerWidth / 1.5}px; height: ${window.innerHeight}px">
-            ${fx}
-          </foreignObject>
-        </svg>`;
-        img.src = h;
+        const cot = x.getResponseHeader("Content-Type");
+        if(cot.search("image") != -1){ // is an image
+          img = new Image();
+          img.width = Math.ceil(window.innerWidth / 1.5);
+          img.src = url;
+        }else{
+          // render by putting html into document... (remove scripts and stuff)
+          const t = document.createElement("template");
+          t.innerHTML = x.responseText;
+          img = t.content.cloneNode(true);
+          img.querySelectorAll("script,iframe,audio,video,style,link").forEach(o=>{o.innerHTML = "";if(o.href){o.href="";}if(o.src){o.src="";}});
+          img.querySelectorAll("[onload],[onerror],[onmouseover],[onmousedown],[onmouseup],[onkeydown],[onkeypress],[onkeyup],[ontouchstart],[ontouchend],[onmousemove]").forEach(o=>{
+
+          });
+        }
+        // append
+        document.body.append(te,img);
       };
     }
-    // append to doc.
-    document.body.append(te,img);
   }
 };
