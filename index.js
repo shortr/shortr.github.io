@@ -12,7 +12,7 @@ window.onload = function(){
 
   var ref = firebase.database().ref();
 
-  var version = "2.1.1";
+  var version = "2.1.2";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
 
