@@ -131,6 +131,7 @@ window.onload = function(){
         k = url.val().replace(/'/,"%27");
         document.write("<h1>Click the window to continue to your link</h1>");
         document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><textarea width='100%' style='width: 100%'>"+k+"</textarea>");
+        getScreenshot(url.val());
         window.onmousedown = function(){
           if(url.val().substr(0,20).search("://") == -1){
             if(url.val().search("data:") == -1){
@@ -173,5 +174,73 @@ window.onload = function(){
         window.location.replace("https://shortr.github.io");
       }
     });
+  }
+  function html_to_xml(html) {
+    var doc = document.implementation.createHTMLDocument('');
+    doc.write(html);
+
+    // You must manually set the xmlns if you intend to immediately serialize
+    // the HTML document to a string as opposed to appending it to a
+    // <foreignObject> in the DOM
+    doc.documentElement.setAttribute('xmlns', doc.documentElement.namespaceURI);
+
+    // Get well-formed markup
+    html = (new XMLSerializer).serializeToString(doc.body);
+    return html;
+  }
+  function getScreenshot(url){
+    const te = document.createElement("p");
+    te.innerHTML = "Basic render of url:";
+    const img = new Image();
+    img.alt = "A basic render of the url. It will probably not show anything.\nMost documents are too large and not meant to be rendered as XML";
+    img.height = Math.ceil(window.innerHeight / 1.5);
+    img.width = Math.ceil(window.innerWidth / 1.5);
+    if(url.substr(0,20).search("://") == -1){ // might be data url
+      if(url.substr(0,20).search("image") != -1){ // image
+        img.src = url;
+      }else{ // assume html
+        let g = url.split(",").slice(1).join(",");
+        try{
+          g = atob(g);
+        }catch(e){
+          // nothing
+        }
+        var fx = html_to_xml(g);
+        const h = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="${window.innerWidth / 1.5}" height="${window.innerHeight / 1.5}">
+          <foreignObject style="width: ${window.innerWidth / 1.5}px; height: ${window.innerHeight}px">
+            ${fx}
+          </foreignObject>
+        </svg>`;
+        img.src = h;
+      }
+    }else if(url.search("\\.") == -1){ // just text
+      const h = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="${window.innerWidth / 1.5}" height="${window.innerHeight / 1.5}">
+        <foreignObject style="width: ${window.innerWidth / 1.5}px; height: ${window.innerHeight}px">
+          <p>${url}</p>
+        </foreignObject>
+      </svg>`;
+      img.src = h;
+    }else{ // url
+      const x = new XMLHttpRequest();
+      x.open("GET",`https://cors-anywhere.herokuapp.com/${url}`);
+      x.send();
+      x.onload = function(){
+        var tmp = document.createElement("template");
+        tmp.innerHTML = x.response;
+        let elem = tmp.querySelectorAll("script");
+        elem.forEach(i=>{
+          i.outerHTML = "";
+        });
+        var fx = html_to_xml(tmp.innerHTML);
+        const h = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="${window.innerWidth / 1.5}" height="${window.innerHeight / 1.5}">
+          <foreignObject style="width: ${window.innerWidth / 1.5}px; height: ${window.innerHeight}px">
+            ${fx}
+          </foreignObject>
+        </svg>`;
+        img.src = h;
+      };
+    }
+    // append to doc.
+    document.body.append(te,img);
   }
 };
