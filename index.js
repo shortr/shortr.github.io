@@ -1,4 +1,3 @@
-//version 2.0.0
 /*global firebase*/
 window.onload = function(){
   var config = {
@@ -13,7 +12,7 @@ window.onload = function(){
 
   var ref = firebase.database().ref();
 
-  var version = "2.0.0";
+  var version = "2.1.0";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
 
@@ -21,9 +20,9 @@ window.onload = function(){
   var bu = document.getElementById("submit");
   var displaytext = document.getElementById("redirlink");
 
-  var randChars = ["a","b","c","d","e","f"];
-  var randChars2 = ["A","B","C","D","E","F"];
-  var randChars3 = ["1","2","3","4","5","6"];
+  var randChars = "abcdefghijklmnopqrstuvwxyz";
+  var randChars2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var randChars3 = "1234567890";
 
   function conv(num){
     var nn = num;
@@ -32,30 +31,39 @@ window.onload = function(){
     var string = ""; //string of shortlink
     var l = 0; //length of string
 
+    var max = (randChars.length * randChars2.length * randChars3.length - 1);
+
     while (rep==true){
-      if(nn2 >= 342){
+      if(nn2 >= max){
         nn = nn2;
-        nn2 = nn - 342;
-        nn = 342;
+        nn2 = nn - max;
+        nn = max;
       }else{
         nn = nn2;
         rep = false;
       }
-      if(Math.floor(nn/49)-1 >= 0){
-        string = string + randChars3[Math.floor(nn/49)-1];
+      if(Math.floor((nn/(randChars2.length * randChars.length))-1 >= 0)){
+        string = string + randChars3[Math.floor(nn/(randChars2.length*randChars.length))-1];
       }
-      nn = nn % 49;
-      if(Math.floor(nn/7)-1 >= 0){
-        string = string + randChars2[Math.floor(nn/7)-1];
+      nn = nn % (randChars2.length * randChars.length);
+      if(Math.floor(nn/randChars2.length)-1 >= 0){
+        string = string + randChars2[Math.floor(nn/randChars2.length)-1];
       }
-      nn = nn % 7;
+      nn = nn % randChars2.length;
       if(nn - 1 >= 0){
         string = string + randChars[nn - 1];
       }
       if(rep == true){
         //nope
       }else{
-        ref.child(string).set(linksh.value);
+        ref.child(string).set(linksh.value,function(err){
+          if(err){
+            // try again.
+            console.log("Error occured. Retrying.");
+            conv(num + 1);
+            displaytext.innerHTML = "<p>There was an error. Please wait as we try again. This is probably because I put more characters into the shortening process.</p>"
+          }
+        });
         let clink = linksh.value;
         if(linksh.value.length >= 60){
           clink = linksh.value.substr(0,60) + "...";
@@ -87,6 +95,7 @@ window.onload = function(){
         }
       }
       if(exists === false){
+        console.log(n + 1);
         conv(n + 1);
       }
     };
@@ -100,6 +109,10 @@ window.onload = function(){
       send();
     }
   });
+
+  if(location.pathname == "tips"){
+    location.search = "llorkcir";
+  }
 
   bu.onclick = send;
 
@@ -118,7 +131,6 @@ window.onload = function(){
         k = url.val().replace(/'/,"%27");
         document.write("<h1>Click the window to continue to your link</h1>");
         document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><textarea width='100%' style='width: 100%'>"+k+"</textarea>");
-        rhead();
         window.onmousedown = function(){
           if(url.val().search("://") == -1){
             if(url.val().search("data:") == -1){
@@ -163,23 +175,3 @@ window.onload = function(){
     });
   }
 };
-
-// for the rickrolling fun!
-function rhead(){
-  if(location.href.split("?")[1].split("&")[0] == "A" || location.href.split("?")[1].split("&")[0] == "llorkcir"){
-    const imgs = ["BV.png","FW.png","hmm.png","SH.png","TP.png"];
-    let m = "images/" + imgs[Math.floor(Math.random()*imgs.length)];
-    const fb = `<meta property="og:image:secure_url" content="https://shortr.github.io/${m}">
-    <meta property="og:image" content="http://shortr.github.io/${m}">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:url" content="https://shortr.github.io/?A">
-    <meta property="og:title" content="25 Top Tips For a Good Life!">
-    <meta property="og:description" content="Learn how to enjoy life to the fullest!">
-    <meta property="og:type" content="website">`;
-    const temp = document.createElement("template");
-    temp.innerHTML = fb;
-    var clones = temp.content.cloneNode(true);
-    document.head.append(clones);
-  }
-}
-rhead();
