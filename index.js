@@ -12,7 +12,7 @@ window.onload = function(){
 
   var ref = firebase.database().ref();
 
-  var version = "2.1.0";
+  var version = "2.1.1";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
 
@@ -68,7 +68,7 @@ window.onload = function(){
         if(linksh.value.length >= 60){
           clink = linksh.value.substr(0,60) + "...";
         }
-        displaytext.innerHTML = "<p>Success! Your link leads to " + clink + ":<br><a href=\"https://shortr.github.io/?" + string + "\">https://shortr.github.io/?" + string + "</a></p>";
+        displaytext.innerHTML = "<p>Success! Your link leads to " + clink.replace(/</gm,"&lt;").replace(/>/gm,"&gt;") + ":<br><a href=\"https://shortr.github.io/?" + string + "\">https://shortr.github.io/?" + string + "</a></p>";
       }
     }
   }
@@ -89,7 +89,7 @@ window.onload = function(){
           if(linksh.value.length >= 60){
             clink = linksh.value.substr(0,60) + "...";
           }
-          displaytext.innerHTML = "<p>Success! Your link leads to " + clink + ":<br><a href=\"https://shortr.github.io/?" + i + "\">https://shortr.github.io/?" + i + "</a></p>";
+          displaytext.innerHTML = "<p>Success! Your link leads to " + clink.replace(/</gm,"&lt;").replace(/>/gm,"&gt;") + ":<br><a href=\"https://shortr.github.io/?" + i + "\">https://shortr.github.io/?" + i + "</a></p>";
           exists = true;
           break;
         }
