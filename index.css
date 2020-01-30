@@ -1,48 +1,73 @@
 #con{
-    position: absolute;
-    height: 600px;
-    width: 400px;
-    margin: 0 0 0 -200px;
-    left: 50%;
-    background: rgba(0,134,255,0.7);
-    text-align: center;
-    z-index: 10;
+  position: absolute;
+  min-height: 100%;
+  min-width: 30rem;
+  max-width: 30rem;
+  margin: 0 0 0 -15rem;
+  left: 50%;
+  background: rgba(0,134,255,0.7);
+  text-align: center;
+  z-index: 10;
+  overflow: auto;
+}
+#submit{
+  margin-top: 0.25rem;
+  background: rgba(140,140,51,0.7);
+  font-size: 1.4rem;
+}
+#mainlink{
+  width: 20rem;
+  height: 1.5rem;
 }
 h1{
-    font-family: 'Montserrat', sans-serif;
-    color: green;
+  font-family: 'Montserrat', sans-serif;
+  color: green;
 }
 body{
-    background: rgba(100,255,2,0.4);
+  background: rgba(100,255,2,0.4);
+  overflow: hidden;
 }
 #inst{
-    transform: translateY(350px);
-    background: blue;
-    height: 150px;
+  position: absolute;
+  background: blue;
+  bottom: 0;
+  width: 100%;
 }
 #inst > strong{
-    Color: yellow;
+  Color: yellow;
 }
 #inst > ol{
-    text-align: left;
-    color: white;
-    font-size: 20;
-    font-family: 'Roboto', sans-serif;
+  text-align: left;
+  color: white;
+  font-size: 20;
+  font-family: 'Roboto', sans-serif;
 }
 #redirlink{
-    position: absolute;
+  position: absolute;
+  width: 100%;
 }
 #footer{
-    position: fixed;
-    bottom: 0;
-    color: grey;
+  position: fixed;
+  bottom: 0;
+  color: grey;
 }
 #footer > #version{
-    display: inline;
+  display: inline;
 }
 #rt-footer{
-    position: fixed;
-    right: 10;
-    text-align: right;
-    bottom: -10;
+  position: fixed;
+  right: 10;
+  text-align: right;
+  bottom: -10;
+}
+
+@media screen and (max-width: 30rem) {
+  #con{
+    min-width: 70vw;
+    max-width: 70vw;
+    margin: 0 0 0 -35vw;
+  }
+  #mainlink{
+    width: 50vw;
+  }
 }
