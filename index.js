@@ -12,7 +12,7 @@ window.onload = function(){
 
   var ref = firebase.database().ref();
 
-  var version = "2.1.3";
+  var version = "2.1.4";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
 
@@ -130,21 +130,21 @@ window.onload = function(){
         var k = url.val().replace(/"/,"%22");
         k = url.val().replace(/'/,"%27");
         document.write("<h1>Click the window to continue to your link</h1>");
-        document.write("<h4>if it doesn't work, click this link:" + "<a href='" + k + "' target=_blank onclick=window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')>" + "Click Me!" + "</a></h4><textarea width='100%' style='width: 100%'>"+k+"</textarea>");
+        document.write("<h4>if it doesn't work, click this link: " + "<a href=\"" + encodeURIComponent(k) + "\" target=\"_blank\" onclick=\"window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ')\">" + "Click Me!" + "</a></h4><textarea width=\"100%\" style=\"width: 100%\">"+k+"</textarea>");
         getScreenshot(url.val());
         window.onmousedown = function(){
           if(url.val().substr(0,20).search("://") == -1){
             if(url.val().search("data:") == -1){
               // if not even a url at all
               if(url.val().search("\\.") == -1){
-                var w = window.open("","_blank");
+                var w = window.open("about:blank","_blank");
                 w.document.write(url.val());
                 return;
               }
               window.open("https://" + url.val(),"_blank");
             }else{
               // if was a data: thing
-              var newWin = window.open("","_blank");
+              var newWin = window.open("about:blank","_blank");
               if(url.val().substr(0,15).search("img") != -1 || url.val().substr(0,13).search("image") != -1){
                 newWin.document.write("<img src='" + k + "'/>");
               }else if(url.val().substr(0,15).search("audio") != -1){
@@ -179,6 +179,7 @@ window.onload = function(){
     var img;
     const te = document.createElement("p");
     te.innerHTML = "Basic render of url:";
+    document.body.append(te);
     if(url.substr(0,20).search("://") == -1){ // might be data url
       if(url.substr(0,20).search("image") != -1){ // image
         img = new Image();
@@ -191,17 +192,8 @@ window.onload = function(){
         }catch(e){
           // nothing
         }
-        const t = document.createElement("template");
-        window.debug = t;
-        t.innerHTML = x.responseText;
-        img = t.content.cloneNode(true);
-        img.querySelectorAll("script,iframe,audio,video,style,link").forEach(o=>{o.innerHTML = "";if(o.href){o.href="";}});
-        img.querySelectorAll("[onload],[onerror],[onmouseover],[onmousedown],[onmouseup],[onkeydown],[onkeypress],[onkeyup],[ontouchstart],[ontouchend],[onmousemove]").forEach(o=>{
-
-        });
+        img = renderPreview(g);
       }
-      // append
-      document.body.append(te,img);
     }else if(url.search("\\.") == -1){ // just text
       // append
       img = document.createElement("p");
@@ -224,17 +216,29 @@ window.onload = function(){
           img.src = url;
         }else{
           // render by putting html into document... (remove scripts and stuff)
-          const t = document.createElement("template");
-          t.innerHTML = x.responseText;
-          img = t.content.cloneNode(true);
-          img.querySelectorAll("script,iframe,audio,video,style,link").forEach(o=>{o.innerHTML = "";if(o.href){o.href="";}if(o.src){o.src="";}});
-          img.querySelectorAll("[onload],[onerror],[onmouseover],[onmousedown],[onmouseup],[onkeydown],[onkeypress],[onkeyup],[ontouchstart],[ontouchend],[onmousemove]").forEach(o=>{
-
-          });
+          img = renderPreview(x.responseText);
         }
-        // append
-        document.body.append(te,img);
       };
     }
+  }
+  function renderPreview(html){
+    const t = document.createElement("template");
+    t.innerHTML = html;
+    let img = t.content.cloneNode(true);
+    img.querySelectorAll("script,iframe,audio,video").forEach(o=>{o.innerHTML = "";if(o.href){o.href="";}if(o.src){o.src="";}});
+    img.querySelectorAll("[onload],[onerror],[onmouseover],[onmousedown],[onmouseup],[onkeydown],[onkeypress],[onkeyup],[ontouchstart],[ontouchend],[onmousemove],[onscroll]").forEach(o=>{
+      function a(){}
+      o.onload = o.onerror = o.onmouseover = o.onmousedown = o.onmouseup = o.onkeydown = o.onkeypress = o.onkeyup = o.ontouchstart = o.ontouchend = o.onmousemove = o.onscroll = a;
+    });
+    const fr = document.createElement("iframe");
+    document.body.append(fr);
+    const div = document.createElement("div");
+    div.append(img);
+    setTimeout(function(){
+      fr.contentDocument.body.append(div);
+    },1000);
+    div.style = `overflow: hidden; height: 100%;`;
+    fr.style = `width: 100%; height:${window.innerHeight / 1.5}px;`;
+    return document.body.append(fr);
   }
 };
