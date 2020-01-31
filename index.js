@@ -185,6 +185,7 @@ window.onload = function(){
         img = new Image();
         img.width = Math.ceil(window.innerWidth / 1.5);
         img.src = url;
+        document.body.append(img);
       }else{ // assume html
         let g = url.split(",").slice(1).join(",");
         try{
@@ -214,6 +215,7 @@ window.onload = function(){
           img = new Image();
           img.width = Math.ceil(window.innerWidth / 1.5);
           img.src = url;
+          document.body.append(img);
         }else{
           // render by putting html into document... (remove scripts and stuff)
           img = renderPreview(x.responseText);
@@ -221,7 +223,7 @@ window.onload = function(){
       };
     }
   }
-  function renderPreview(html){
+  function renderPreview(html) {
     const t = document.createElement("template");
     t.innerHTML = html;
     let img = t.content.cloneNode(true);
