@@ -12,7 +12,7 @@ window.onload = function(){
 
   var ref = firebase.database().ref();
 
-  var version = "2.1.4";
+  var version = "2.1.5";
   var v = document.getElementById("version");
   v.innerText = "v. " + version;
 
@@ -240,7 +240,7 @@ window.onload = function(){
       fr.contentDocument.body.append(div);
     },1000);
     div.style = `overflow: hidden; height: 100%;`;
-    fr.style = `width: 100%; height:${window.innerHeight / 1.5}px;`;
+    fr.style = `width: 100%; height:${window.innerHeight / 1.5}px; pointer-events: none;`;
     return document.body.append(fr);
   }
 };
